@@ -62,7 +62,8 @@ set ttimeoutlen=100
 set undodir=~/.vim/_undo
 set undofile
 set wildmenu
-set window=55
+set winminheight=0
+set winminwidth=0
 let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -82,7 +83,7 @@ tabnew
 tabnew
 tabnew
 tabrewind
-edit Makefile
+edit CMakeLists.txt
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -102,6 +103,8 @@ set winwidth=1
 exe 'vert 1resize ' . ((&columns * 119 + 119) / 238)
 exe 'vert 2resize ' . ((&columns * 118 + 119) / 238)
 argglobal
+if bufexists("CMakeLists.txt") | buffer CMakeLists.txt | else | edit CMakeLists.txt | endif
+balt Makefile
 setlocal keymap=
 setlocal noarabic
 setlocal noautoindent
@@ -118,7 +121,7 @@ setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=sO:#\ -,mO:#\ \ ,b:#
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
 setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
@@ -135,9 +138,9 @@ setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal noexpandtab
-if &filetype != 'make'
-setlocal filetype=make
+setlocal expandtab
+if &filetype != 'cmake'
+setlocal filetype=cmake
 endif
 setlocal fixendofline
 setlocal foldcolumn=0
@@ -151,16 +154,16 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=ql
+setlocal formatoptions=tq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal formatprg=
 setlocal grepprg=
 setlocal iminsert=0
 setlocal imsearch=-1
-setlocal include=^\\s*include
+setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=GetMakeIndent()
-setlocal indentkeys=!^F,o,O,<:>,=else,=endif
+setlocal indentexpr=CMakeGetIndent(v:lnum)
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e,=ENDIF(,ENDFOREACH(,ENDMACRO(,ELSE(,ELSEIF(,ENDWHILE(
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -190,7 +193,7 @@ setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
 setlocal scrolloff=-1
-setlocal shiftwidth=0
+setlocal shiftwidth=2
 setlocal noshortname
 setlocal showbreak=
 setlocal sidescrolloff=-1
@@ -206,8 +209,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'make'
-setlocal syntax=make
+if &syntax != 'cmake'
+setlocal syntax=cmake
 endif
 setlocal tabstop=2
 setlocal tagcase=
@@ -231,12 +234,12 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 50 - ((47 * winheight(0) + 26) / 53)
+let s:l = 20 - ((19 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 50
-normal! 0
+keepjumps 20
+normal! 039|
 wincmd w
 argglobal
 2argu
@@ -838,7 +841,7 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 26
-normal! 03|
+normal! 0
 wincmd w
 argglobal
 if bufexists("src/ErrorReporter.cpp") | buffer src/ErrorReporter.cpp | else | edit src/ErrorReporter.cpp | endif
@@ -1581,18 +1584,19 @@ normal! 0
 wincmd w
 exe 'vert 1resize ' . ((&columns * 119 + 119) / 238)
 exe 'vert 2resize ' . ((&columns * 118 + 119) / 238)
-tabnext 5
+tabnext 1
 set stal=1
 badd +1 Makefile
-badd +0 src/main.cpp
-badd +0 include/Lox.hpp
-badd +0 src/Lox.cpp
-badd +0 src/ErrorReporter.cpp
-badd +0 include/ErrorReporter.hpp
-badd +0 src/Token.cpp
-badd +0 include/Token.hpp
-badd +0 src/Scanner.cpp
-badd +0 include/Scanner.hpp
+badd +1 src/main.cpp
+badd +1 include/Lox.hpp
+badd +1 include/ErrorReporter.hpp
+badd +1 include/Token.hpp
+badd +1 include/Scanner.hpp
+badd +1 src/Lox.cpp
+badd +1 src/ErrorReporter.cpp
+badd +1 src/Token.cpp
+badd +1 src/Scanner.cpp
+badd +0 CMakeLists.txt
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif

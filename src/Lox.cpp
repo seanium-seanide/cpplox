@@ -13,7 +13,7 @@ Lox::Lox(int argc, char **argv)
 {
   m_args.resize(argc - 1);
 
-  for (size_t i = 1; i < argc; ++i)
+  for (size_t i = 1; i < static_cast<size_t>(argc); ++i)
   {
     m_args.emplace_back(argv[i]);
   }

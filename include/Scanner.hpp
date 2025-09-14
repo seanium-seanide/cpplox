@@ -8,7 +8,9 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include "Token.hpp"
+#include "utilities.hpp"
 
 class Scanner
 {
@@ -65,9 +67,43 @@ public:
    */
   bool isAtEnd();
 
+  /**
+   * @brief Look ahead one character in the source buffer, without updating the current position.
+   *
+   * @return The next character in the source buffer.
+   */
+  char peek();
+
+  /**
+   * @brief Look ahead two characters in the source buffer, without updating the current position.
+   *
+   * @return The character after the next in the source buffer.
+   */
+  char peekNext();
+
+  /**
+   * @brief Parse a string, starting from the current positon in the source buffer.
+   */
+  void string();
+
+  /**
+   * @brief Parse a number, starting from the current positon in the source buffer.
+   */
+  void number();
+
+  /**
+   * @brief Parse an identifier, starting from the current positon in the source buffer.
+   */
+  void identifier();
+
 private:
 
   std::string m_source;
   std::vector<Token> m_tokens;
 
+  size_t m_start;
+  size_t m_current;
+  size_t m_line;
+
+  static const std::unordered_map<std::string, Token::TOKENTYPE> m_keywords;
 };
