@@ -62,6 +62,7 @@ set ttimeoutlen=100
 set undodir=~/.vim/_undo
 set undofile
 set wildmenu
+set window=55
 set winminheight=0
 set winminwidth=0
 let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
@@ -82,7 +83,148 @@ tabnew
 tabnew
 tabnew
 tabnew
+tabnew
 tabrewind
+edit README.md
+argglobal
+if bufexists("README.md") | buffer README.md | else | edit README.md | endif
+balt CMakeLists.txt
+setlocal keymap=
+setlocal noarabic
+setlocal noautoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=fb:*,fb:-,fb:+,n:>
+setlocal commentstring=<!--%s-->
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal cursorlineopt=both
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'markdown'
+setlocal filetype=markdown
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=tqln
+setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\|^[-*+]\\s\\+\\|^\\[^\\ze[^\\]]\\+\\]:
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal listchars=
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:],<:>
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=htmlcomplete#CompleteTags
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal softtabstop=0
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'markdown'
+setlocal syntax=markdown
+endif
+setlocal tabstop=2
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal thesaurusfunc=
+setlocal undofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal virtualedit=
+setlocal wincolor=
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 27) / 54)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+tabnext
 edit CMakeLists.txt
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
@@ -535,7 +677,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 22 - ((15 * winheight(0) + 26) / 53)
+let s:l = 22 - ((16 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -675,7 +817,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 12 - ((11 * winheight(0) + 26) / 53)
+let s:l = 12 - ((11 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -836,7 +978,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 26 - ((25 * winheight(0) + 26) / 53)
+let s:l = 26 - ((25 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -975,7 +1117,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 12 - ((11 * winheight(0) + 26) / 53)
+let s:l = 12 - ((11 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -1136,7 +1278,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 53)
+let s:l = 1 - ((0 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -1275,7 +1417,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 53)
+let s:l = 1 - ((0 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -1436,7 +1578,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 53)
+let s:l = 1 - ((0 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -1575,7 +1717,7 @@ setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 53)
+let s:l = 1 - ((0 * winheight(0) + 28) / 56)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -1586,6 +1728,7 @@ exe 'vert 1resize ' . ((&columns * 119 + 119) / 238)
 exe 'vert 2resize ' . ((&columns * 118 + 119) / 238)
 tabnext 1
 set stal=1
+badd +40 CMakeLists.txt
 badd +1 Makefile
 badd +1 src/main.cpp
 badd +1 include/Lox.hpp
@@ -1596,7 +1739,7 @@ badd +1 src/Lox.cpp
 badd +1 src/ErrorReporter.cpp
 badd +1 src/Token.cpp
 badd +1 src/Scanner.cpp
-badd +0 CMakeLists.txt
+badd +0 README.md
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
