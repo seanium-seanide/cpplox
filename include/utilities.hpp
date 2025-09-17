@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace utilities
 {
   /**
@@ -28,4 +30,9 @@ namespace utilities
    * @return true if the character is alphanumeric, false otherwise.
    */
   bool isAlnum(char c);
+
+  /**
+   * @brief Read an entire text file into a string
+   */
+  std::string readFile(const std::string &path);
 }
