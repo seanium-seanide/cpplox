@@ -31,7 +31,8 @@ public:
    *
    * @return An error code returned to the operation system upon conclusion of execution.
    */
-  int main();
+  [[nodiscard]]
+  int main() noexcept;
 
   /**
    * @brief Execute a Lox source file.

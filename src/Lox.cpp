@@ -6,6 +6,8 @@
 
 #include "Lox.hpp"
 
+#include <fstream>
+#include <cstdlib>
 #include <fmt/core.h>
 
 Lox::Lox(int argc, char **argv)
@@ -23,15 +25,39 @@ Lox::~Lox()
 {
 }
 
-int Lox::main()
+int Lox::main() noexcept
 {
-  fmt::print("Hello, world!\n");
+  if (m_args.size() > 1)
+  {
+    // Invalid usage
+    fmt::print("Usage: cpplox [script]");
+    std::exit(64);  // command-line usage error
+  }
+  else if (m_args.size() == 1)
+  {
+    // Execute a file
+    this->runFile(m_args[0].data());
+  }
+  else
+  {
+    // Run the REPL
+    this->runPrompt();
+  }
 
   return 0;
 }
 
 void Lox::runFile(const std::string &path)
 {
+  std::ifstream infile;
+  infile.open(path);
+
+  if (!infile.is_open())
+  {
+    throw std::runtime_error(fmt::format("Failed to open the file: {}", path));
+  }
+
+  infile.close();
 }
 
 void Lox::runPrompt()
