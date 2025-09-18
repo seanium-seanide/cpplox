@@ -6,9 +6,11 @@
 
 #include "Lox.hpp"
 
+#include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <fmt/core.h>
+#include "utilities.hpp"
 
 Lox::Lox(int argc, char **argv)
 : m_exeName(argv[0])
@@ -49,19 +51,30 @@ int Lox::main() noexcept
 
 void Lox::runFile(const std::string &path)
 {
-  std::ifstream infile;
-  infile.open(path);
+  // Read the file
+  std::string source;
+  utilities::readFile(source, path);
 
-  if (!infile.is_open())
-  {
-    throw std::runtime_error(fmt::format("Failed to open the file: {}", path));
-  }
-
-  infile.close();
+  // Run the file
+  run(source);
 }
 
 void Lox::runPrompt()
 {
+  std::string line;
+
+  while (std::getline(std::cin, line))
+  {
+    // Prompt
+    fmt::print("> ");
+
+    if (line == "")
+    {
+      break;
+    }
+
+    run(line);
+  }
 }
 
 void Lox::run(const std::string &source)

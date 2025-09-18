@@ -3,57 +3,47 @@
 #include <fstream>
 #include <fmt/core.h>
 
-bool utilities::isDigit(char c)
+bool utilities::isDigit(char c) noexcept
 {
   // Placeholder
   return true;
 }
 
-bool utilities::isAlpha(char c)
+bool utilities::isAlpha(char c) noexcept
 {
   // Placeholder
   return true;
 }
 
-bool utilities::isAlnum(char c)
+bool utilities::isAlnum(char c) noexcept
 {
   // Placeholder
   return true;
 }
 
 // TODO: Complete implementation
-//
-// Candidate (simpler) solution
-//
-// Source: https://stackoverflow.com/questions/116038/how-do-i-read-an-entire-file-into-a-stdstring-in-c
-//
-//std::string slurp(std::ifstream& in) {
-//    std::ostringstream sstr;
-//    sstr << in.rdbuf();
-//    return sstr.str();
-//}
-//
-std::string utilities::readFile(const std::string &path)
+void utilities::readFile(std::string &result, const std::string &path)
 {
-  size_t bufferSize = 4096;
-
-  std::ifstream istream;
-  istream.open(path);
-  if (!istream.is_open())
+  // Open the input file in binary mode, and seek to the end of the stream
+  std::ifstream infile(path, std::ios::binary | std::ios::ate);
+  if (!infile.is_open())
   {
-    throw std::runtime_error(fmt::format("Failed to open file: {}.", path));
+    throw std::runtime_error(fmt::format("Failed to open file: {}", path));
   }
 
-  std::string readBuffer{bufferSize, '\0'}; // Read buffer
-  std::string fileText{};                   // Text in file
+  // Clear the output buffer
+  result.clear();
 
-  while (istream.read(&readBuffer[0], bufferSize)) // read bufferSize characters into readBuffer
-  {
-    // TODO: Figure out the best way to read the entire file, buffer-by-buffer
-    //fileText.append(bufferSize, 0, istream.gcount());
-  }
+  // Get the file size (position of the get pointer)
+  std::streamsize fileSize = infile.tellg();
 
-  //fileText.append(readBuffer, 0, istream.gcount());
+  // Seek the get pointer to offset 0 relative to the beginning of the file stream
+  infile.seekg(0, std::ios::beg);
 
-  return fileText;
+  // Read the file
+  result.resize(fileSize, '\0');
+  infile.read(result.data(), fileSize);
+
+  // Close the input file
+  infile.close();
 }
